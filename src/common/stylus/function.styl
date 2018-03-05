@@ -1,3 +1,13 @@
+border-px($width, $color)
+    border: $width solid $color
+border-b-px($width, $color)
+    border-bottom: $width solid $color
+border-t-px($width, $color)
+    border-bottom: $width solid $color
+
+border-px($width, $color)
+    border: $width solid $color
+            
 border-bottom-px($width, $color)
     position: relative
     &:after
@@ -52,6 +62,12 @@ backRepeatSize($w, $h)
     background-position:center center
     background-size:$w $h
 
+ellipsis()
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    -o-text-overflow: ellipsis
+    
     
     
 

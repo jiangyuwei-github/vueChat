@@ -3,6 +3,7 @@ const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
+
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
@@ -35,6 +36,27 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         quiet: true, // necessary for FriendlyErrorsPlugin
         watchOptions: {
             poll: config.dev.poll,
+        },
+        before(app){
+
+            // const server = require('http').Server(app)
+
+            // const io = require('socket.io')(server)
+
+
+            // server.listen(8080,function(){
+            //     console.log('node app start at port 80')
+            // })
+
+            // io.on('connection',function(socket){
+            //     console.log('user login')
+            //     socket.on('sendmsg',function(data){
+            //        io.emit('recvmsg',data)
+            //     })
+
+                
+            
+            // })
         }
     },
     plugins: [

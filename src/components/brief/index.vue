@@ -1,89 +1,104 @@
 <template>
     <div>
-        <div class="header">
-            <v-loginicon v-on:showLeftNav="_showLeftNav"></v-loginicon>
-            <h2 class="headerTitle" v-text="'简介'"></h2>
-            <div class="Occupy"></div>
-        </div>
-        <div class="brief topSeat botSeat">
-            <load-state v-show="loadState"></load-state>
-            <div class="banner" v-show="!loadState" :style="{height:cliHeight, backgroundImage: bannerUrl}"></div>
-            <v-Brief :content="brieftxt" v-show="!loadState"></v-Brief>
-        </div>
-        <v-footer :showClass="'discovery'"></v-footer>
-        <v-navbar :leftnavFlag="leftnavFlag" v-on:hideLeftNav="_hideLeftNav"></v-navbar>
+        <HeadrTitle :title="title"></HeadrTitle>
+        <div class="banner" :style="bannerParam"></div>
+        <div class="quotetext bfiefContent" v-html='contentText.content'></div>
     </div>
+
 </template>
 
 <script>
-
-import {mapGetters, mapActions} from 'vuex'
-import headTitle from '../module/head/headTitle.vue'//公共头部
-import vBrief from '../module/brief/brief.vue'
-import loadState from '../module/loadState/loadState.vue'//加载状态
-import vLoginicon from '../module/loginicon/loginicon.vue'
-import vNavbar from '../module/navbar/navbar.vue'//左导航
-import vFooter from "../module/footer/footer"
-
+import {mapGetters} from 'vuex'
+import {commonAjaxFun,setTitle} from '@/util/util'
+import HeadrTitle from '@/base/headerTitle/index'//公共头部
+import axios from 'axios'
+import { param } from '@/config/config'
+import qs from 'qs'
 export default {
     data(){
         return {
-            loadState: true,//初次进页面加载中
-            leftnavFlag: false,//显示左导航
-            cliHeight: `${parseInt(document.body.clientWidth * 9 / 16)}px`,
-            bannerUrl: '',//banner的url地址
-            brieftxt: ''//简介内容
+            'BasicInfo' : "",   //会议的基本信息
+            "contentText" :"",
+            "title":this.$route.query.title
         }
+    },
+    created:function(){
+        setTitle({title:this.$route.query.title,bg:false});
+        var params = {
+            "projectId": this.$route.query.childId,
+            "passKey":this.$route.query.childPassKey,
+            "type":"eventIntroModule"
+        }
+        // 获取简介内空
+        // axios.post(param.api_url + '/eventapi/during/getDataChildren', qs.stringify(params))
+        // .then(res=>{
+        //   if(res.status == 200 ){
+        //     this.contentText =res.data.data
+        //     // console.log(JSON.parse(JSON.stringify(this.contentText)))
+        //   }
+        // })
+        // .catch(err=>{
+        //   console.log(err)
+        // })
+        // commonAjaxFun(params)
+        // .then(
+        //         function(data){
+        //             console.log(this.contentText)
+        //             That.contentText = data;
+        //         }, 
+        //        function(reason, data){
+        //            console.log(reason);
+        //        }
+        //     )
+
+
+        commonAjaxFun(params,param.baseUrl)
+        .then(
+                (data)=>{
+                    this.contentText = data;
+                },(reason, data)=>{
+                    console.log(reason);
+                } 
+            )
+
+
     },
     components: {
-        headTitle,
-        vBrief,
-        loadState,
-        vLoginicon,
-        vNavbar,
-        vFooter
+        HeadrTitle
     },
     computed: {
-        ...mapGetters({
-            getChildrenProject: 'getChildrenProject',
-            _homePageAjax: 'homePageAjax'
-        })
-    },
-    methods: {
-        ...mapActions([
-            'homePageAjax'
-        ]),
-        _showLeftNav: function(){
-            this.leftnavFlag = true
+        bannerParam(){     //Banner的高度和背景图片
+            var HB = {
+                height:`${parseInt(document.body.clientWidth * 9 / 16)}px`,
+                backgroundImage:""
+            }
+            if(this.BasicInfo){
+                var tempImg =this.BasicInfo.meetingPrimary ? this.BasicInfo.meetingPrimary : './kv.png'
+                HB.backgroundImage = "url(" +tempImg+ ")"
+            }
+            return HB
         },
-        _hideLeftNav: function(){
-            this.leftnavFlag = false
-        }
-    },
-    mounted(){
-        this.homePageAjax({projectId: 12097, passKey: '3E16BA44B851ED3AB299D1C57AAD6ADE'})
+        ...mapGetters([
+          'navList',
+          'PrId_PaKey',
+          'navflg'
+        ])
     },
     watch: {
-        getChildrenProject: function(){
-            this.bannerUrl = `url(${this.getChildrenProject.basicInfo.meetingPrimary}`;
-        },
-        _homePageAjax : function(){
-            this.brieftxt = this._homePageAjax.eventIntroModule.content.content;
-            this.loadState = false;
+        navList(newList,oldList){
+            // console.log(JSON.parse(JSON.stringify(newList)))
+            this.BasicInfo = newList.basicInfo;
         }
     }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
-.brief
-    .quotetext
-        padding: 10px
-        background: #fff
+@import "~@/common/stylus/variable.styl"
     .banner
         background-size: cover
         background-position: 50% 50%
         background-repeat: no-repeat
-        background-image: url(../ticket/kv.png)
+    .bfiefContent
+        padding: 10px 15px;
 </style>

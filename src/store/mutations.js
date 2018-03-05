@@ -1,36 +1,41 @@
-import * as types from './types'
-import getters from './getters'
+import * as types from './mutation-types'
+import {getCookie} from '@/util/util'
+const matutaions = {
+  [types.SET_NAVLIST](state, navList) {
+    state.navList = navList
+  },
+  [types.SET_PRIDPAKEY](state, PP) {
+  	// console.log("设置PID_PassKey")
+    state.PrId_PaKey = PP
+  },
+  [types.SET_NAVFLG](state) {
+    state.navflg = !state.navflg
+  },
+  [types.SET_FOOTERFLG](state,str) {
+    state.footerflg = str
+  },
+  [types.SET_MODULES](state,modules) {
+    state.modules = modules
+  },
+  [types.SET_BOTTOMTag](state,str) {
+    state.bottomTag = str
+  },
+  [types.SET_MESSAGELIST](state,str) {
+    const msg = str.to == getCookie("userId") || str.from == getCookie("userId") ?[...state.msgList,str ] : state.msgList
+    state.msgList = msg
+  
+    const n = str.to == getCookie("userId") ? 1 : 0
+    state.unread = state.unread + n
 
-//存放所有数据
-const state = {
-    getChildrenProject: Object,
-    homePageAjax: Object,//会议基本信息
-    getDataChildren: Object,//基础模块
-    interactData: Object//互动类模块-问卷
+  },
+  [types.SET_CHATFLG](state) {
+    state.chatFlag = true
+  },
+  [types.SET_FIRENDER](state) {
+    state.firend = state.attendguest.filter((key)=>{
+        return key.pwd !==getCookie("userId")
+    })
+  }
 }
 
-
-const mutations = {
-    [types.GETCHILDRENPROJECT](state, response) {
-        //获取项目基本信息
-        state.getChildrenProject = response;
-    },
-    [types.HOMEPAGEAJAX](state, response) {
-        //会议简介
-        state.homePageAjax = response;
-    },
-    [types.GETDATACHILDREN](state, response) {
-        //会议简介
-        state.getDataChildren = response;
-    },
-    [types.INTERGETDATA](state, response) {
-        //会议简介
-        state.interactData = response;
-    }
-}
-
-export default {
-    state,
-    mutations,
-    getters
-}
+export default matutaions

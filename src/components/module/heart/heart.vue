@@ -3,6 +3,7 @@
 </template>
 <script>
 
+import $ from 'jquery'
 import {api_url} from '../../../common/js/common.js'
 
 export default {

@@ -40,7 +40,8 @@
 </template>
 <script>
 
-import {mainProjectId, mainUserTk, commonAjaxFun} from '../../../common/js/common.js'
+import $ from 'jquery'
+import {api_url, mainProjectId, mainUserTk} from '../../../common/js/common.js'
 
 export default {
     props: {
@@ -129,8 +130,8 @@ export default {
             if(_flag) {
                 _this.$layer.loading()
                 //回答了
-                commonAjaxFun({
-                    url: '/complain/report',
+                $.ajax({
+                    url: api_url + '/complain/report',
                     data: {
                         projectId: this.childId,
                         userTk: mainUserTk,
@@ -138,13 +139,16 @@ export default {
                         moduleId: this.moduleId,
                         complainId: this.complainId,
                         complainDescription: this.complainDescription
-                    }
-                }).then((data) => {
-                    try {
-
+                    },
+                    type: 'post',
+                    dataType: "json",
+                    success: function(data) {
                         _this.$layer.close();
 
+                        console.log(data)
+
                         _this.complainScuessFlag = true
+                        
 
                         if(data.state == '0'){
                             //提交成功
@@ -167,35 +171,36 @@ export default {
                             _this.stateTips='';
                             _this.stateTipsImg = '/src/common/images/warn.png';
                         }
-
-
-                    } catch(err){
-                        console.log(err)
+                    },
+                    error: function(err) {
+                        console.log(err);
                     }
-                })
+                });
             }
         },
         getComplainData: function(){
             //获取投诉列表
             let _this = this;
-
-            commonAjaxFun({
-                url: '/complain/getComplain',
+            $.ajax({
+                url: api_url + '/complain/getComplain',
                 data: {
                     projectId: mainProjectId,
                     userTk: mainUserTk
-                }
-            }).then((data) => {
-                try {
+                },
+                type: 'post',
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
                     if(data.state == '0'){
                         _this.complainArr = data.data;
                     } else {
                         console.log(data.message);
                     }
-                } catch(err){
-                    console.log(err)
+                },
+                error: function(err) {
+                    console.log(err);
                 }
-            })
+            });
         }
     }
 }

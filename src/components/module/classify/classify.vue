@@ -5,63 +5,58 @@
                 <ul>
                     <li v-for="item in list" >
                         <template v-if = "item.FrontEnd == 'level_1'">
-                            <div class="level">
+                            <div class="level level_1" @click="open(item,$event)">
                                 <p class="overText" @click="open(item,$event)">
                                     <i class="add" :class="[item.openMark ? 'icon-icon78' : 'icon-icon79']"></i>
                                     <span v-text='item.name'></span>
                                 </p>
                                 <i class="all" :class="[item.choiceMark ? 'icon-icon32' : 'icon-icon34']"  @click="all(item,$event)"></i>
                             </div>
-                            <ul style="display:none">
+                            <ul>
                                 <li v-for="item2 in item.children">
                                     <template v-if = "item2.FrontEnd == 'level_1'" >
-                                        <div class="level">
+                                        <div class="level level_1" >
                                             <p class="overText"  @click="open(item2,$event)">
                                                 <i class="add" :class="[item2.openMark ? 'icon-icon78' : 'icon-icon79']"></i>
                                                 <span v-text='item2.name'></span>
                                             </p>
-                                            <i class="all" :class="[item2.choiceMark ? 'icon-icon32' : 'icon-icon34']"  @click="all(item2,$event)"></i>
+                                            <i class="all" :class="[item.choiceMark ? 'icon-icon32' : 'icon-icon34']"  @click="all(item,$event)"></i>
                                         </div>
-                                        <ul style="display:none">
+                                        <ul>
                                             <li v-for="item3 in item2.children" v-if = "item3.FrontEnd == 'level_3'" >
-                                                <div class="level" @click="single(item3,$event)" :class="{'select':item3.choiceMark}"><p class="overText"><span v-text='item3.name'></span></p></div>
+                                                <div class="level_3" @click="single(item3,$event)" :class="{'select':item3.choiceMark}"><p class="overText"><span v-text='item3.name'></span></p></div>
                                             </li>
                                         </ul>
                                     </template>
                                     <template v-if = "item2.FrontEnd == 'level_3'" >
-                                        <div class="level" @click="single(item2,$event)" :class="{'select':item2.choiceMark}"><p class="overText"><span v-text='item2.name'></span></p></div>
+                                        <div class="level level_2" @click="single(item2,$event)" :class="{'select':item2.choiceMark}"><p class="overText"><span v-text='item2.name'></span></p></div>
                                     </template>
                                 </li>
                             </ul>
                         </template>
                         <template v-if = "item.FrontEnd == 'level_3'">
-                            <div class="level" @click="single(item,$event)" :class="{'select':item.choiceMark}"><p class="overText"><span v-text='item.name'></span></p></div>
+                            <div class="level level_1" @click="single(item,$event)" :class="{'select':item.choiceMark}"><p class="overText"><span v-text='item.name'></span></p></div>
                         </template>
                     </li>
                 </ul>
             </div>
-
-            
             <div class="classifyButtom">
-                <a href="javascript:void(0);" @click="reset" class="reset">重置</a>
+                <a href="javascript:void(0);" class="reset">重置</a>
                 <a href="javascript:void(0);" @click="submit" class="submit">确定</a>
             </div>
         </div>
-
-
-
     </transition>
 </template>
 <script>
 
-import {api_url, getListTrees, commonAjaxFun} from '../../../common/js/common.js'
+import $ from 'jquery'
+import {api_url, getListTrees} from '../../../common/js/common.js'
 
 export default {
     data(){
         return {
             showClassFlag: false,//分类的显示隐藏
-            list: [],//列表数据
-            categoryId:[]
+            list: []//列表数据
         }
     },
     created: function(){
@@ -71,73 +66,60 @@ export default {
         getClassifyData: function(){
             //获取展位分类
             let _this = this;
-            commonAjaxFun({
-                url: '/boothApi/getAllCategory',
-                data: {}
-            }).then((data) => {
-                try{
-                    let _data = data.data;
+            $.ajax({
+                url: api_url + '/boothApi/getAllCategory',
+                data: {},
+                type: 'post',
+                dataType: "json",
+                success: function(data) {
+
                     if(data.state == '0'){
-                        _this.list = getListTrees(_data, 0);
-                       console.log(JSON.parse(JSON.stringify(_this.list)))
+                        _this.list = getListTrees(data.data, 0);
                     }
-                }catch(err){
-                    console.log(err)
+                },
+                error: function(err) {
+                    console.log(err);
                 }
-            })
+            });
         },
         open: function(itemdata, event){
-            $(event.target).parents("div.level").next().slideToggle()
-            this.$set(itemdata, "openMark", !itemdata.openMark);
-        },
-        all: function(itemdata, event) {
-            let _That = this
-            _That.$set(itemdata, "choiceMark", !itemdata.choiceMark);
-            ChooseChildNodes(itemdata.children)
 
-            function ChooseChildNodes(item) {
-                if (item) {
-                    for (var i = 0, max = item.length; i < max; i++) {
-                        _That.$set(item[i], "choiceMark", itemdata.choiceMark);
-                        ChooseChildNodes(item[i].children)
-                    }
+        },
+        all: function(){
+
+        },
+        getChooice: function(){
+            //获取选中的id
+            let tempArry = [];
+            let person_love_choiceList = pitchOn(this.list);
+            let person_love_Id = [];
+
+            for (let i = 0; i < person_love_choiceList.length; i++) {
+                person_love_Id.push(person_love_choiceList[i].id);
+            }
+            return person_love_Id;
+        },
+        single: function(itemdata, event){
+            if ($.inArray(itemdata.id, _id) >= 0) {
+                this.$set(itemdata, "choiceMark", !itemdata.choiceMark);
+            } else {
+                if (_id.length >= 3) {
+                    error_layer(__("interTips"));
+                } else {
+                    this.$set(itemdata, "choiceMark", !itemdata.choiceMark);
                 }
             }
-            this.isAllA(this.list);
         },
-        isAllA: function(allData) {
-            let _That = this
-            allChoice(allData)
-            function allChoice(item) {
-                if (item) {
-
-                    for (var i = 0, max = item.length; i < max; i++) {
-                        if (item[i].children.length > 0) {
-                            allChoice(item[i].children)
-                            if (isChildNodes(item[i].children)) {
-
-                                _That.$set(item[i], "choiceMark", true);
-                            } else {
-                                _That.$set(item[i], "choiceMark", false);
-                            }
-                        }
+        pitchOn: function(){
+            if (item) {
+                for (let k = 0; k < item.length; k++) {
+                    if (item[k].children.length == 0 && item[k].choiceMark){
+                        tempArry.push(item[k]);
                     }
+                    pitchOn(item[k].children)
                 }
             }
-            function isChildNodes(item) {
-                for (var k = 0, maxK = item.length; k < maxK; k++) {
-                    if (!item[k].choiceMark) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        },
-        single: function(itemdata, parentItem, event) {
-            // console.log("sdfasdf")
-            this.$set(itemdata, "choiceMark", !itemdata.choiceMark);
-             // console.log(JSON.parse(JSON.stringify(this.list)))
-            this.isAllA(this.list);
+            return tempArry;
         },
         showClassFn: function(){
             //分类显示隐藏
@@ -145,42 +127,7 @@ export default {
         },
         submit: function(){
             this.showClassFn();
-            let tempArry = [];
-            let choiceList = pitchOn(this.list);
-            this.categoryId = [];
-            for (var i = 0, max = choiceList.length; i < max; i++) {
-               this.categoryId.push(choiceList[i].id);
-            }
-            //获取选中的ID
-            function pitchOn(item) {
-                if (item) {
-                    for (var k = 0, maxK = item.length; k < maxK; k++) {
-                        if (item[k].children.length == 0 && item[k].choiceMark) {
-                            tempArry.push(item[k]);
-                        }
-                        pitchOn(item[k].children)
-                    }
-                }
-                return tempArry;
-            }
-            console.log(this.categoryId)
-        },
-        reset: function() {
-            let _That = this
-            reset_all(this.list)
-
-            function reset_all(item) {
-                if (item) {
-                    for (var k = 0, maxK = item.length; k < maxK; k++) {
-                        _That.$set(item[k], "choiceMark", false);
-                        reset_all(item[k].children)
-                    }
-                }
-            }
         }
-    },
-    components: {
-        'componentA':componentC,
     }
 }
 </script>
@@ -238,7 +185,7 @@ export default {
                 margin-left: 30px
     .level
         display: flex
-        border-bottom:1px solid  rgba(0, 0, 0, 0.05)
+        border-bottom-px(1px, rgba(0, 0, 0, 0.05))
     p.overText
         display: flex
         flex: 1
@@ -261,25 +208,5 @@ export default {
         text-align: center
         line-height: 40px
         font-size: 16px
-    ul div.select
-        position:relative
-        border-bottom:1px solid #F35B00;
-        color:#F35B00
-        &:after
-           position:absolute;
-           right:0;
-           top:0;
-           padding:0 10px 0 5%;
-           content:"\e609";
-           font-family:"iconfont" !important;
-           font-size:16px;
-           font-style:normal;
-           -webkit-font-smoothing:antialiased;
-           -moz-osx-font-smoothing:grayscale;
-           color:#F35B00
-    .icon-icon32 
-        color: #f35b00;
-    
-
 
 </style>

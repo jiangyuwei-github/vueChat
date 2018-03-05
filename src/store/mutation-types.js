@@ -1,0 +1,9 @@
+export const SET_NAVLIST = 'SET_NAVLIST'
+export const SET_MODULES = 'SET_MODULES'
+export const SET_PRIDPAKEY = 'SET_PRIDPAKEY'
+export const SET_NAVFLG = 'SET_NAVFLG'
+export const SET_FOOTERFLG = 'SET_FOOTERFLG'
+export const SET_BOTTOMTag = 'SET_BOTTOMTag'
+export const SET_MESSAGELIST = 'SET_MESSAGELIST'
+export const SET_FIRENDER = 'SET_FIRENDER'       //获取好友列表
+export const SET_CHATFLG = 'SET_CHATFLG'       //获取好友列表

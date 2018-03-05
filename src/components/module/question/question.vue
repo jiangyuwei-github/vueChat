@@ -40,6 +40,8 @@
 <script>
 
 import { optionNumToSerial } from '../../../common/js/common.js'
+import $ from 'jquery'
+
 export default {
     props:{
         question: Object

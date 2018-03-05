@@ -1,10 +1,10 @@
 <template>
     <div class="footer">
-        <router-link :class="[showClass == 'ticket' ? 'active' : '']" :to="homeLink"><i class="icon-icon81"></i><p>首页</p></router-link>
-        <router-link :class="[showClass == 'booth' ? 'active' : '']" to="/hudongpiao/booth/index"><i class="icon-icon82"></i><p>展商</p></router-link>
-        <router-link :class="[showClass == 'social' ? 'active' : '']" to="/hudongpiao/attendguest/index"><i class="icon-icon83"></i><p>社交</p></router-link>
-        <router-link :class="[showClass == 'notice' ? 'active' : '']" to="/hudongpiao/personinform/notice"><i class="icon-icon84"></i><p>消息<span class="number">12</span></p></router-link>
-        <router-link :class="[showClass == 'discovery' ? 'active' : '']" to="/hudongpiao/discovery/index"><i class="icon-icon85"></i><p>发现</p></router-link>
+        <router-link :to="homeLink"><i class="icon-icon81"></i><p>首页</p></router-link>
+        <router-link to="/hudongpiao/booth/index"><i class="icon-icon82"></i><p>展商</p></router-link>
+        <router-link to="/hudongpiao/attendguest/index"><i class="icon-icon83"></i><p>社交</p></router-link>
+        <router-link to="/hudongpiao/personinform/notice"><i class="icon-icon84"></i><p>消息<span class="number">12</span></p></router-link>
+        <router-link to="/hudongpiao/discovery/index"><i class="icon-icon85"></i><p>发现</p></router-link>
     </div>
 </template>
 
@@ -14,9 +14,6 @@ import {mainProjectId, mainPassKey} from '../../../common/js/common.js'
 
 
 export default {
-    props: {
-        showClass: String//当前显示的class
-    },
     data(){
         return {
             homeLink: `/hudongpiao/ticket/index?projectId=${mainProjectId}&passKey=${mainPassKey}`

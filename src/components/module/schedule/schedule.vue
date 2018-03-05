@@ -34,6 +34,7 @@
 </template>
 <script>
 import {formatDate, scheduleFormat, mainProjectId, mainPassKey, mainUserTk} from '../../../common/js/common.js';
+import $ from 'jquery';
 import BScroll from 'better-scroll';
 import vHeart from '../heart/heart.vue'
 
@@ -268,6 +269,47 @@ export default {
         p:last-child
             font-size: 16px
             padding: 1px 0 4px
+.meetingList
+    .meetingPlace
+        background: #fff
+        h3
+            background: #fafafa
+            border-top-px(1px, rgba(7, 17, 27, 0.1))
+            font-size: 13px
+            line-height: 24px
+        ul
+            padding-left: 14px
+        li
+            display: flex
+            border-bottom-px(1px, rgba(0, 0, 0, 0.05))
+            &:last-child
+                border-bottom-px(0px, rgba(0, 0, 0, 0.05))
+            a.toLink
+                flex: 1
+                display:flex
+                padding: 12px 0   
+                .timer
+                    flex: 0 0 50px
+                    font-size: 12px
+                    span:last-child
+                        color: #999999
+                        line-height: 18px
+                .meetTxt
+                    flex: 1
+                    box-sizing: border-box
+                    padding: 0 16px
+                    font-size: 15px
+                    line-height: 20px
+                    border-left-px(1px, rgba(0, 0, 0, 0.05))
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+            .list-handle
+                line-height: 64px
+                i
+                    color: #f35b00
+                    font-size: 36px
 </style>
 
 

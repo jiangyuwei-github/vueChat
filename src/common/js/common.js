@@ -1,22 +1,19 @@
+import $ from 'jquery';
 import layer from 'vue-layer-mobile'
 
 export let api_url =  process.env.NODE_ENV == 'development' ? 'http://localhost:8080' : '';
 
 export const regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;//邮箱正则
 
-export const mainProjectId = 12097;//主项目ID
+/*export const mainProjectId = 12097;//主项目ID
 export const mainPassKey = '3E16BA44B851ED3AB299D1C57AAD6ADE';
 export const mainUserTk = '990CAA741F9A3A60AE3A24E6DB9F4FE0';
-
-
-/*export const mainProjectId = 74227;//主项目ID
-export const mainPassKey = '2E2738127C0A8637A99711AEDA0156EC';
-export const mainUserTk = '0F9D205F5287F1254BD2815D52B54678';*/
-
-/*export const mainProjectId = 74746;//主项目ID-CHANGEPROJECT
-export const mainPassKey = 'C20BA0A91C24B20B923C978570D471E3';//HUDONGPIAOPASSKEY
-export const mainUserTk = 'FDD007EDB2D0477E8840C81181397974';//EVENTUSERTK
 */
+
+export const mainProjectId = 74227;//主项目ID
+export const mainPassKey = '2E2738127C0A8637A99711AEDA0156EC';
+export const mainUserTk = '0F9D205F5287F1254BD2815D52B54678';
+
 
 /**
  * 需要隐藏底部footer组建的页面
@@ -24,7 +21,7 @@ export const mainUserTk = 'FDD007EDB2D0477E8840C81181397974';//EVENTUSERTK
  * [footHideArr description]
  * @type {Array}
  */
-export let footHideArr = ['question', 'boothDetail', 'productDetail', 'topicDetail']
+export let footHideArr = ['question', 'boothDetail', 'productDetail']
 
 
 /**
@@ -526,38 +523,6 @@ export function deleteTheme(childId, themeId){
 }
 
 /**
- * [deleteTheme 话题详情评论列表删除]
- * @param  {[type]} id [当前项目的评论contentId]
- * @return {[type]}    [description]
- */
-export function deleteContent(projectId, contentId) {
-    return new Promise((resolve,reject) => {
-        if(resolve){
-            $.ajax({
-                url: api_url + "/interactTopic/deleteContent",
-                dataType: "json",
-                data: {
-                    projectId: projectId,
-                    userTk: mainUserTk,
-                    contentId: contentId
-                },
-                type: 'post',
-                success: function(data) {
-                    setTimeout(() => {
-                        resolve(data);
-                    }, 1000)
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-    })
-}
-
-
-
-/**
  * [boothClassifyToList 展位分类]
  * @param  {[type]} val [分类列表数组]
  * @return {[type]}    [分类字符串]
@@ -581,7 +546,7 @@ export function boothClassifyToList(val){
  * @param  {[type]} params [description]
  * @return {[type]}        [description]
  */
-export function commonAjaxFun(params, time){
+export function commonAjaxFun(params){
     return new Promise((resolve, reject) =>{
         if(resolve){
             $.ajax({
@@ -590,14 +555,7 @@ export function commonAjaxFun(params, time){
                 data: params.data,
                 type: 'post',
                 success: function(data) {
-                    if(!!time) {
-                        //如果有时间则间隔返回
-                        setTimeout(() => {
-                            resolve(data);
-                        }, time)
-                    } else {
-                        resolve(data)
-                    }
+                    resolve(data.data)
                 },
                 error: function(err) {
                     reject(err)
@@ -662,147 +620,3 @@ function collectDataFunInner(arr, id){
     }
     return index
 }
-
-
-
-//字数统计
-export function CountChineseCharacters(str) {
-    var Words = str;
-    var W = new Object();
-    var Result = new Array();
-    var iNumwords = 0;
-    var sNumwords = 0;
-    var sTotal = 0; //双字节字符;
-    var iTotal = 0; //中文字符；
-    var eTotal = 0; //Ｅ文字符
-    var otherTotal = 0;
-    var bTotal = 0;
-    var inum = 0; //数字
-
-    for (let i = 0; i < Words.length; i++) {
-        var c = Words.charAt(i);
-        if (c.match(/[\u4e00-\u9fa5]/)) {
-            if (isNaN(W[c])) {
-                iNumwords++;
-                W[c] = 1;
-            }
-            iTotal++;
-        }
-    }
-
-    for (let i = 0; i < Words.length; i++) {
-        var c = Words.charAt(i);
-        if (c.match(/[^\x00-\xff]/)) {
-            if (isNaN(W[c])) {
-                sNumwords++;
-
-            }
-            sTotal++;
-        } else {
-            eTotal++;
-        }
-        if (c.match(/[0-9]/)) {
-            inum++;
-        }
-    }
-
-    return iTotal * 2 + (sTotal - iTotal) * 2 + eTotal;
-}
-
-/* 
- * 处理过长的字符串，截取并添加省略号 
- * 注：半角长度为1，全角长度为2 
- *  
- * pStr:字符串 
- * pLen:截取长度 
- *  
- * return: 截取后的字符串 
- */
-export function autoAddEllipsis(pStr, pLen) {
-    var _ret = cutString(pStr, pLen);
-    var _cutFlag = _ret.cutflag;
-    var _cutStringn = _ret.cutstring;
-    return _cutStringn;
-}
-
-
-
-/* 
- * 取得指定长度的字符串 
- * 注：半角长度为1，全角长度为2 
- *  
- * pStr:字符串 
- * pLen:截取长度 
- *  
- * return: 截取后的字符串 
- */
-function cutString(pStr, pLen) {
-
-    // 原字符串长度  
-    var _strLen = pStr.length;
-
-    var _tmpCode;
-
-    var _cutString;
-
-    // 默认情况下，返回的字符串是原字符串的一部分  
-    var _cutFlag = "1";
-
-    var _lenCount = 0;
-
-    var _ret = false;
-
-    if (_strLen <= pLen / 2) {
-        _cutString = pStr;
-        _ret = true;
-    }
-
-    if (!_ret) {
-        for (var i = 0; i < _strLen; i++) {
-            if (isFull(pStr.charAt(i))) {
-                _lenCount += 2;
-            } else {
-                _lenCount += 1;
-            }
-
-            if (_lenCount > pLen) {
-                _cutString = pStr.substring(0, i);
-                _ret = true;
-                break;
-            } else if (_lenCount == pLen) {
-                _cutString = pStr.substring(0, i + 1);
-                _ret = true;
-                break;
-            }
-        }
-    }
-
-    if (!_ret) {
-        _cutString = pStr;
-        _ret = true;
-    }
-
-    if (_cutString.length == _strLen) {
-        _cutFlag = "0";
-    }
-
-    return {
-        "cutstring": _cutString,
-        "cutflag": _cutFlag
-    };
-}
-
-/* 
- * 判断是否为全角 
- * pChar:长度为1的字符串 
- * return: true:全角 
- *          false:半角 
- */
-function isFull(pChar) {
-    if ((pChar.charCodeAt(0) > 128)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-

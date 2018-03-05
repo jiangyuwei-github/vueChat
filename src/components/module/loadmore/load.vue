@@ -38,6 +38,7 @@
 
 import { Loadmore } from 'mint-ui';
 import {api_url} from '../../../common/js/common.js'
+import $ from 'jquery'
 
 import loadState from '../loadState/loadState.vue'//加载状态
 import boothList from '../../booth/list.vue'//引入展位列表模块
@@ -104,7 +105,7 @@ export default {
     methods: {
         loadTop: function(){
 
-            let _this = this;
+            var _this = this;
 
             if(_this.whichfrom == 'sceneList'){//图文直播
                 _this.queryId = '';
@@ -196,7 +197,7 @@ export default {
         },
         loadBottom: function(){
 
-            let _this = this;
+            var _this = this;
 
             //如果来源不是图文直播，或者互动圈
             if((_this.whichfrom != 'sceneList') && (_this.whichfrom !== 'momentList')){

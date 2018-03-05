@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="move">
-            <div class="data-download" v-show="showFlag">
+            <div class="data-download"  v-show="showFlag">
                 <!--资料下载-->
                 <div class="data-down-close"><i class="icon-icon35" @click="hideMaskShadow"></i></div>
                 <div class="data-down-in">
@@ -17,6 +17,7 @@
 </template>
 <script>
 
+import $ from 'jquery'
 import {api_url, regEmail} from '../../../common/js/common.js'
 
 export default {
@@ -59,7 +60,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
 .data-download
-    background-color: #fff
+    background: #fff
     width: 300px
     position: fixed
     left: 50%

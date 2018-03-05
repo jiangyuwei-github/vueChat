@@ -16,6 +16,13 @@ module.exports = {
             '^/eventapi/during/homePageAjax': '/eventapi/during/homePageAjax'
         }
     },
+    '/frontUser/autoLogin': {//后台自动登陆
+        target: url,
+        changeOrigin: true,
+        pathRewrite: {
+            '^/frontUser/autoLogin': '/frontUser/autoLogin'
+        }
+    },
     '/eventapi/during/getChildrenProject': {//首页
         target: url,
         changeOrigin: true,
@@ -58,25 +65,11 @@ module.exports = {
             '^/boothApi/getProducts': '/boothApi/getProducts'
         }
     },
-    '/boothApi/getProductsDetail': {//展品详情
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/boothApi/getProductsDetail': '/boothApi/getProductsDetail'
-        }
-    },
     '/interact/needs/getPage': {//需求
         target: url,
         changeOrigin: true,
         pathRewrite: {
             '^/interact/needs/getPage': '/interact/needs/getPage'
-        }
-    },
-    '/interact/needs/getNeeds': {//需求详情
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interact/needs/getNeeds': '/interact/needs/getNeeds'
         }
     },
     '/userApi/allUsers': {//来宾
@@ -100,20 +93,6 @@ module.exports = {
             '^/interactTopic/getThemeList': '/interactTopic/getThemeList'
         }
     },
-    '/interactTopic/getTheme': {//互动话题详情
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactTopic/getTheme': '/interactTopic/getTheme'
-        }
-    },
-    '/interactTopic/getContentList': {//话题评论列表
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactTopic/getContentList': '/interactTopic/getContentList'
-        }
-    },
     '/interact/common/getData': {//问卷
         target: url,
         changeOrigin: true,
@@ -121,11 +100,18 @@ module.exports = {
             '^/interact/common/getData': '/interact/common/getData'
         }
     },
-    '/eventapi/during/getDataChildren': {//帮助中心
+    '/eventapi/during/getDataChildren': {//基础模块
         target: url,
         changeOrigin: true,
         pathRewrite: {
             '^/eventapi/during/getDataChildren': '/eventapi/during/getDataChildren'
+        }
+    },
+    '/eventapi/during/getChildrenDetails': {//基础模块
+        target: url,
+        changeOrigin: true,
+        pathRewrite: {
+            '^/eventapi/during/getChildrenDetails': '/eventapi/during/getChildrenDetails'
         }
     },
     '/boothApi/getBoothDetail': {//展位详情
@@ -147,104 +133,6 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
             '^/interactCircle/deleteTheme': '/interactCircle/deleteTheme'
-        }
-    },
-    '/interactTopic/deleteContent': {//删除话题详情评论列表
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactTopic/deleteContent': '/interactTopic/deleteContent'
-        }
-    },
-    '/eventapi/during/getAllDatum': {//资料下载
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/eventapi/during/getAllDatum': '/eventapi/during/getAllDatum'
-        }
-    },
-    '/boothApi/getDatums': {//展位资料下载
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/boothApi/getDatums': '/boothApi/getDatums'
-        }
-    },
-    '/boothApi/watch': {//展位预约时间
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/boothApi/watch': '/boothApi/watch'
-        }
-    },
-    '/eventapi/during/getSchduleList': {//我的日程
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/eventapi/during/getSchduleList': '/eventapi/during/getSchduleList'
-        }
-    },
-    '/eventapi/during/getNewAppLiveGraphic': {//图文直播
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/eventapi/during/getNewAppLiveGraphic': '/eventapi/during/getNewAppLiveGraphic'
-        }
-    },
-    '/interactCircle/saveTheme': {//发布朋友圈
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactCircle/saveTheme': '/interactCircle/saveTheme'
-        }
-    },
-    '/userApi/userInfo': {//嘉宾详情页面
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/userApi/userInfo': '/userApi/userInfo'
-        }
-    },
-    '/userApi/HisContent': {//嘉宾详情动态
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/userApi/HisContent': '/userApi/HisContent'
-        }
-    },
-    '/interactTopic/saveContent': {//评论内容提交
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactTopic/saveContent': '/interactTopic/saveContent'
-        }
-    },
-    '/interactTopic/likedLogs': {//评论内容点咋按
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactTopic/likedLogs': '/interactTopic/likedLogs'
-        }
-    },
-    '/eventapi/during/getSchduleList': {//发布互动圈 @我在的日程列表
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/eventapi/during/getSchduleList': '/eventapi/during/getSchduleList'
-        }
-    },
-    '/interactCircle/saveTheme': {//发布互动圈发送
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interactCircle/saveTheme': '/interactCircle/saveTheme'
-        }
-    },
-    '/interact/needs/saveNeeds': {//发布需求
-        target: url,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/interact/needs/saveNeeds': '/interact/needs/saveNeeds'
         }
     }
 

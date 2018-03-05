@@ -1,14 +1,14 @@
 <template>
     <transition name="move">
         <div class="left-nav" v-show="leftnavFlag" @click.stop="hideLeftNav">
-            <div class="left-nav-in" v-if="localInfro">
+            <div class="left-nav-in">
                 <div class="left-nav-header">
-                    <router-link :to="userUrl">
-                        <div class="left-nav-photo"><img v-lazy="localInfro.userInfo.headPortrait" /></div>
+                    <router-link to="/hudongpiao/attendguest/detail">
+                        <div class="left-nav-photo"><img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEK4BBn6hE4DxWh75XdDtPPaAkmJDiaYJkQwbDRIFMrn2tYQibHYuQicpibUtwRBRz0xtNyZElx0griaafA/0" /></div>
                         <div class="left-nav-text">
-                            <h3 v-text="localInfro.userInfo.name"></h3>
-                            <p v-text="localInfro.userInfo.company"></p>
-                            <p v-text="localInfro.userInfo.position"></p>
+                            <h3>李想</h3>
+                            <p>李想</p>
+                            <p>李想</p>
                         </div>
                         <div class="list-handle"><i class="icon-icon29"></i></div>
                     </router-link>
@@ -28,9 +28,6 @@
                             <router-link to="/hudongpiao/moment/mymoment"><i class="icon-icon63"></i><span>我的互动圈</span></router-link>
                         </li>
                         <li>
-                            <router-link to="/hudongpiao/poster/index"><i class="icon-icon11"></i><span>我的海报</span></router-link>
-                        </li>
-                        <li>
                             <router-link to="/hudongpiao/login/password"><i class="icon-icon87"></i><span>修改密码</span></router-link>
                         </li>
                     </ul>
@@ -46,18 +43,6 @@
 export default {
     props: {
         leftnavFlag: Boolean
-    },
-    data(){
-        return {
-            localInfro:'',//头像
-            userUrl:'javascript:void(0)'//点击头像跳转的url
-        }
-    },
-    mounted(){
-        if(!!localStorage.getItem('HUDONGPIAOINFRO')){
-            this.localInfro = window.localStorage ? JSON.parse(localStorage.getItem('HUDONGPIAOINFRO')) : '';
-            this.userUrl = '/hudongpiao/attendguest/detail?userid=' + this.localInfro.userInfo.userid
-        }
     },
     methods: {
         hideLeftNav: function(){
@@ -106,11 +91,10 @@ export default {
         flex: 0 0 60px
         border-radius: 6px
         overflow: hidden
-        font-size: 0px
         img
             max-width: 60px
             max-height: 60px
-            vertical-align: middle
+            vertical-align: -4px
     .left-nav-text
         flex: 1
         box-sizing: border-box
@@ -185,7 +169,7 @@ export default {
                     line-height: 46px
                     font-size: 18px
                     text-align: center
-                    &.icon-icon04, &.icon-icon63, &.icon-icon11
+                    &.icon-icon04, &.icon-icon63
                         font-size: 25px
                     &.icon-icon76
                         font-size: 20px

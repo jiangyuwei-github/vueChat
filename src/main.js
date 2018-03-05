@@ -6,21 +6,28 @@ import router from './router'
 import store from './store/index'
 import './common/stylus/index.styl'
 import VueCookie from 'vue-cookie'
+import fastclick from 'fastclick'
 import layer from 'vue-layer-mobile'
+// import VueLazyLoad from 'vue-lazyload'
+
+// Vue.use(VueLazyLoad,{
+// 	loading:require('common/image/default.png')
+// })
 
 Vue.config.productionTip = false
 
 Vue.use(VueCookie);
 Vue.use(layer);
 
-import { Lazyload } from 'mint-ui';
+fastclick.attach(document.body)
 
+import { Lazyload } from 'mint-ui';
+import $ from 'jquery'
 Vue.use(Lazyload,{
     error: require('./common/images/errorImg.png'),
     loading: require('./common/images/loading.svg')
 });
 
-import { mainProjectId, mainPassKey} from './common/js/common.js'
 
 /* eslint-disable no-new */
 new Vue({

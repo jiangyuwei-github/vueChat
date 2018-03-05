@@ -1,25 +1,27 @@
 <template>
 	<div>
-        <div class="company-title shadow">
-            <div class="company-title-inner">
-                <div class="company-title-photo"><img v-lazy="handlePhoto(boothData.comLogo)"></div>
-                <h3 v-text="boothData.comShortName"></h3>
-                <p>所属行业：{{boothData.comIndustry}}</p>
-            </div>        
-        </div>
-        <div class="company-baisc shadow" v-if="boothData.comWebsite || boothData.comCity">
-                <h3 class="console-txt-h3">基本信息</h3>
-                <p v-if="boothData.comWebsite"><i class="icon-icon73"></i><span v-text="boothData.comWebsite"></span></p>
-                <p v-if="boothData.comCity || boothData.companyName"><i class="icon-icon10"></i><span>{{boothData.comCity}} {{boothData.comProvince}} {{boothData.comCounty}} {{boothData.companyName}}</span></p>
-        </div>
-        <div class="company-detail shadow" v-if="boothData && boothData.comIntro">
-            <h3 class="console-txt-h3">简介</h3>
-            <v-Brief v-if="boothData" :content="boothData.comIntro"></v-Brief>
-        </div>
-        <div class="company-comment"></div>
+                <div class="company-title shadow">
+                        <div class="company-title-inner">
+                                <div class="company-title-photo"><img v-lazy="handlePhoto(boothData.comLogo)"></div>
+                                <h3 v-text="boothData.comShortName"></h3>
+                                <p>所属行业：{{boothData.comIndustry}}</p>
+                        </div>        
+                </div>
+                <div class="company-baisc shadow" v-if="boothData.comWebsite || boothData.comCity">
+                        <h3 class="console-txt-h3">基本信息</h3>
+                        <p v-if="boothData.comWebsite"><i class="icon-icon73"></i><span v-text="boothData.comWebsite"></span></p>
+                        <p v-if="boothData.comCity || boothData.companyName"><i class="icon-icon10"></i><span>{{boothData.comCity}} {{boothData.comProvince}} {{boothData.comCounty}} {{boothData.companyName}}</span></p>
+                </div>
+                <div class="company-detail shadow" v-if="boothData && boothData.comIntro">
+                        <h3 class="console-txt-h3">简介</h3>
+                        <v-Brief v-if="boothData" :content="boothData.comIntro"></v-Brief>
+                </div>
+                <div class="company-comment"></div>
 	</div>
 </template>
 <script>
+
+import $ from 'jquery'
 import vBrief from '../brief/brief.vue'
 import {api_url, formatDate, mainProjectId, mainPassKey, mainUserTk,  boothClassifyToList, commonAjaxFun} from '../../../common/js/common.js'
 

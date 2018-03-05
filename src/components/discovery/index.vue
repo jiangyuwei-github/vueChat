@@ -1,108 +1,122 @@
 <template>
-    <div>
-        <div class="header">
-            <v-loginicon v-on:showLeftNav="_showLeftNav"></v-loginicon>
-            <h2 class="headerTitle" v-text="'发现'"></h2>
-            <div class="Occupy"></div>
-        </div>
-        <div class="discovery topSeat botSeat">
-            <load-state v-show="loadState"></load-state>
-            <ul v-if="modulesArr.length > 0">
-                <li v-for="value in modulesArr">
-                    <a :href="value.linkUrl">
-                        <i :class="value.icon"></i>
-                        <p class="ellipsis" v-text="value.appName"></p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <v-footer :showClass="'discovery'"></v-footer>
-        <v-navbar :leftnavFlag="leftnavFlag" v-on:hideLeftNav="_hideLeftNav"></v-navbar>
+    <div class="">
+      <HeadrTitle :title="title"></HeadrTitle>
+      <div class="discoveryList">
+        <template v-for="(value, key) in Modules">
+   
+            <router-link :to="{ path:url( modulesData[value.beanName][1] + '?childId=' + value.projectId + '&childPassKey=' + value.passKey + '&title=' + value.appName + '&appId=' +value.appId  ) }" v-if="value.beanName !== 'linkModule'">
+                <i :class="[modulesData[value.beanName][0]]"></i>
+                <span v-text='value.appName'></span>
+            </router-link>
+
+            <a v-bind:href="value | getUrl" v-if="value.beanName === 'linkModule'">
+              <i :class="[modulesData[value.beanName][0]]"></i>
+              <span v-text='value.appName'></span>
+            </a>
+
+        </template>
+      </div>
     </div>
+
 </template>
 
 <script>
-
-import {mapGetters, mapActions} from 'vuex'
-import {chooseChildIcon, mainProjectId, mainPassKey} from '../../common/js/common.js'
-import vNavbar from '../module/navbar/navbar.vue'//左导航
-import vLoginicon from '../module/loginicon/loginicon.vue'
-import headTitle from '../module/head/headTitle.vue'//公共头部
-import loadState from '../module/loadState/loadState.vue'//加载状态
-import vFooter from "../module/footer/footer"
-
+import HeadrTitle from '@/base/headerTitle/index'//公共头部
+import {mapGetters,mapMutations} from 'vuex'
+import {globalMethods} from '@/util/mixin'
+import {setTitle} from '@/util/util'
+import axios from 'axios'
+import { param } from '@/config/config'
+import qs from 'qs'
 export default {
     data(){
         return {
-            leftnavFlag: false,//显示左导航
-            loadState: true,//初次进页面加载中
-            Infro: '',//基础数据
-            modulesArr: []//模块数组
+          "title":"发现",
+          "Modules" : "",
+          "modulesData" : {
+            eventIntroModule: ["icon-icon03", "/hudongpiao/brief/index"], //简介
+            appScheduleModule: ["icon-icon05", "/hudongpiao/schedule/schedule"], //日程
+            guestModule: ["icon-icon07", "/hudongpiao/guest/index"], //嘉宾
+            partnerModule: ["icon-icon06", "/hudongpiao/home/partner"], //合作伙伴
+            helpModule: ["icon-icon02", "/hudongpiao/home/help"], //帮助中心
+            linkModule: ["icon-icon14", "/hudongpiao/home/link"], //自定义连接
+            newsModule: ["icon-icon12", "/hudongpiao/home/editing"], //图文编辑
+            datumModule: ["icon-icon08", "/hudongpiao/home/down"], //下载
+            appLiveGraphicModule: ["icon-icon01", "/hudongpiao/home/picAndText"], //图文直播
+            voteModule: ["icon-icon13", "/hudongpiao/home/interactVote"], //投票
+            speekModule: ["icon-icon15", "/hudongpiao/home/interactSpeek"], //互动发言
+            questionModule: ["icon-icon09", "/hudongpiao/home/interactQuestion"] //问卷
+          }
         }
+    },
+    mixins:[globalMethods],
+    created:function(){
+      setTitle({title:"发现",bg:true});
     },
     components: {
-        headTitle,
-        loadState,
-        vLoginicon,
-        vNavbar,
-        vFooter
+      HeadrTitle
     },
-    computed: {
-        ...mapGetters({
-            _getChildrenProject: 'getChildrenProject'
-        })
-    },
-    mounted(){
-        this.getChildrenProject({projectId:mainProjectId, passKey: mainPassKey})
+    filters: {
+        getUrl: function(val) {
+            var backUrl = val.linkUrl;
+            if(val.beanName == "linkModule" && val.linkUrl != ""){
+                var reg_url = /^(https?|http):\/\//;
+                if (!reg_url.test(backUrl)) {
+                    backUrl = "http://" + backUrl;
+                }
+            } else if(val.beanName == "linkModule" && val.linkUrl == ""){
+                backUrl = "javascript:void(0);"
+            }
+            return backUrl;
+        },
     },
     methods: {
-        ...mapActions([
-            'getChildrenProject'
-        ]),
-        _chooseChildIcon: function(){
-            this.modulesArr = chooseChildIcon(this.Infro.modules);
-        },
-        _showLeftNav: function(){
-            this.leftnavFlag = true
-        },
-        _hideLeftNav: function(){
-            this.leftnavFlag = false
-        }
+
+    },
+    computed: {
+        ...mapGetters([
+          'PrId_PaKey',
+          'modules'
+        ])
     },
     watch: {
-        _getChildrenProject: function(){
-            this.Infro = this._getChildrenProject;
+        modules(mewModules,oldModules){
+            // console.log(JSON.parse(JSON.stringify(mewModules)))
+            // this.Modules = mewModules
+            var That = this
+            this.Modules =  mewModules.filter(function(key){
+              return That.modulesData[key.beanName]
+            })
 
-            this._chooseChildIcon();
-            this.loadState = false;
+
         }
     }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
-@import "../../common/stylus/function.styl"
-.discovery
-    ul
-        padding-left: 20px
-        background:#fff
-        li
-            border-bottom-px(1px, rgba(7, 17, 27, 0.1))
-            &:last-child
-               border-bottom-px(0px, rgba(7, 17, 27, 0.1)) 
-            a
-                display: block
-                line-height: 46px
-                display: flex
-                i
-                    flex: 0 0 40px
-                    text-align: center
-                    line-height: 46px
-                    font-size: 22px
-                p
-                    flex: 1
-                    box-sizing: border-box
-                    line-height: 46px
-                    padding: 0 10px
+@import "~@/common/stylus/variable.styl"
+@import "~@/common/stylus/function.styl"
+.discoveryList
+  background:#ffffff
+  padding-left: 20px;
+  a
+    line-height: 46px;
+    border-b-px(1px,rgba(0, 0, 0, 0.05))
+    display: block;
+    color: #333;
+    position: relative;
+    &:last-child
+      border:none;
+    i
+      display: inline;
+      line-height: 46px;
+      font-size: 25px;
+      float: left;
+      width: 25px;
+      position: relative;
+    span
+      display: inline;
+      font-size: 16px;
+      padding-left: 16px;
 </style>

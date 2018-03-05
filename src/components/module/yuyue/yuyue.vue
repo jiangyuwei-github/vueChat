@@ -85,6 +85,7 @@
 </template>
 <script>
 
+import $ from 'jquery'
 import {mapGetters, mapActions} from 'vuex'
 import {api_url, formatDate, mainProjectId, mainPassKey, mainUserTk,  boothClassifyToList, commonAjaxFun} from '../../../common/js/common.js'
 
@@ -129,109 +130,110 @@ export default {
     },
     methods: {
     	...mapActions([
-			'getChildrenProject'
+		'getChildrenProject'
         ]),
         hideMaskShadow: function(){
-    		//隐藏遮罩层
-    		this.yuyueShowFlag = false;
-    		this.zixunShowFlag = false;
+        		//隐藏遮罩层
+        		this.yuyueShowFlag = false;
+        		this.zixunShowFlag = false;
         },
         showYuyue: function(){
-    		//显示预约
-    		if(this.timeFlag){
-    			//活动已结束
-    			this.$layer.toast({content: '活动已结束'})
-    		}
+        		//显示预约
+        		if(this.timeFlag){
+        			//活动已结束
+        			this.$layer.toast({content: '活动已结束'})
+        		}
 
-    		this.yuyueShowFlag = !this.yuyueShowFlag;
+        		this.yuyueShowFlag = !this.yuyueShowFlag;
         },
         showZixun: function(){
-    		//显示咨询
-    		this.zixunShowFlag = !this.zixunShowFlag;
+        		//显示咨询
+        		this.zixunShowFlag = !this.zixunShowFlag;
         },
         submitYuyue: function(){
-        	//预约提交
-			let _this = this;
-			commonAjaxFun({
-				url: '/userApi/watch',
-				data: {
-					id: _this.boothData.id,
-					projectId: mainProjectId,
-					userTk: mainUserTk,
-					type: 'booth_sub',
-					subscribeDate: _this.yuyueTime,
-					subscribePart: _this.timeAmPm
-				}
-			}).then((data) => {
-				if(!!data.data){
-					//您的预约信息已提交，请耐心等待展商与您联系
-					_this.$layer.toast({content: '您的预约信息已提交，请耐心等待展商与您联系'})
-					_this.hideMaskShadow()
-				} else {
-					_this.$layer.toast({content: data.message})
-				}
-			})
+        		//预约提交
+		let _this = this;
+		commonAjaxFun({
+			url: '/userApi/watch',
+			data: {
+				id: _this.boothData.id,
+				projectId: mainProjectId,
+				userTk: mainUserTk,
+				type: 'booth_sub',
+				subscribeDate: _this.yuyueTime,
+				subscribePart: _this.timeAmPm
+			}
+		}).then((data) => {
+			if(!!data){
+				//您的预约信息已提交，请耐心等待展商与您联系
+				_this.$layer.toast({content: '您的预约信息已提交，请耐心等待展商与您联系'})
+				_this.hideMaskShadow()
+			} else {
+				_this.$layer.toast({content: data.message})
+			}
+		})
         },
         changeAmPm: function(event, time){
-    		$(event.currentTarget).siblings().find('i').addClass('icon-icon38').removeClass('icon-icon36 icon_color');
-    		$(event.currentTarget).find('i').addClass('icon-icon36 icon_color')
-    		this.timeAmPm = time;
+        		$(event.currentTarget).siblings().find('i').addClass('icon-icon38').removeClass('icon-icon36 icon_color');
+        		$(event.currentTarget).find('i').addClass('icon-icon36 icon_color')
+        		this.timeAmPm = time;
         },
     	handlePhoto: function(val) {
-			return !val ? '/src/common/images/boothPhoto.png' : val
+		return !val ? '/src/common/images/boothPhoto.png' : val
         },
         getYuYueTimeList: function(begin, end){
-			let ab = begin.split("-");
-			let ae = end.split("-");
-			let db = new Date();
-			db.setUTCFullYear(ab[0], ab[1] - 1, ab[2]);
-			let de = new Date();
-			de.setUTCFullYear(ae[0], ae[1] - 1, ae[2]);
-			let unixDb = db.getTime();
-			let unixDe = de.getTime();
+		let ab = begin.split("-");
+		let ae = end.split("-");
+		let db = new Date();
+		db.setUTCFullYear(ab[0], ab[1] - 1, ab[2]);
+		let de = new Date();
+		de.setUTCFullYear(ae[0], ae[1] - 1, ae[2]);
+		let unixDb = db.getTime();
+		let unixDe = de.getTime();
 
-			let timeArr = []; //时间列表
+		let timeArr = []; //时间列表
 
-			for (let k = unixDb; k <= unixDe;) {
-				let curTime = formatDate(new Date(parseInt(k)), 'yyyy-MM-dd')
-				timeArr.push(curTime);
-				k = k + 24 * 60 * 60 * 1000;
-			}
+		for (let k = unixDb; k <= unixDe;) {
+			let curTime = formatDate(new Date(parseInt(k)), 'yyyy-MM-dd')
+			timeArr.push(curTime);
+			k = k + 24 * 60 * 60 * 1000;
+		}
 
-			return timeArr;
+		return timeArr;
         },
         determineTimeOver: function(){//判断当前时间是否过期
 
-    		//由本地存储获取开始时间和结束时间
-    		let localStorageStartTime = this.Infro.basicInfo.startTime || formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
-    		let localStorageEndTime = this.Infro.basicInfo.endTime || formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+        		//由本地存储获取开始时间和结束时间
+        		let localStorageStartTime = this.Infro.basicInfo.startTime || formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+        		let localStorageEndTime = this.Infro.basicInfo.endTime || formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
-    		localStorageStartTime = localStorageStartTime.replace(new RegExp("-", "gm"), "/")
-    		localStorageEndTime = localStorageEndTime.replace(new RegExp("-", "gm"), "/")
+        		localStorageStartTime = localStorageStartTime.replace(new RegExp("-", "gm"), "/")
+        		localStorageEndTime = localStorageEndTime.replace(new RegExp("-", "gm"), "/")
 
-    		//当前时间
-    		let todayTimeMsec = new Date().getTime(), 
-    		todayTimeMsecFormat = formatDate(new Date(todayTimeMsec), 'yyyy-MM-dd');
+        		//当前时间
+        		let todayTimeMsec = new Date().getTime(), 
+        		todayTimeMsecFormat = formatDate(new Date(todayTimeMsec), 'yyyy-MM-dd');
 
-    		//会议开始时间
-    		let startTimeMsec = new Date(localStorageStartTime).getTime(),
-    		startTimeMsecFormat = formatDate(new Date(localStorageStartTime), 'yyyy-MM-dd');
+        		//会议开始时间
+        		let startTimeMsec = new Date(localStorageStartTime).getTime(),
+        		startTimeMsecFormat = formatDate(new Date(localStorageStartTime), 'yyyy-MM-dd');
 
-    		//会议结束时间
-    		let endTimeMsec = new Date(localStorageEndTime).getTime(),
-    		endTimeMsecFormat = formatDate(new Date(localStorageEndTime), 'yyyy-MM-dd')
+        		//会议结束时间
+        		let endTimeMsec = new Date(localStorageEndTime).getTime(),
+        		endTimeMsecFormat = formatDate(new Date(localStorageEndTime), 'yyyy-MM-dd')
 
-    		if( todayTimeMsec <= startTimeMsec ){
-    			//当前时间小于开始时间
-    			this.getTimeOptionArr = this.getYuYueTimeList(startTimeMsecFormat, endTimeMsecFormat);
-    		} else if (todayTimeMsec > endTimeMsec) {
+        		if( todayTimeMsec <= startTimeMsec ){
+        			//当前时间小于开始时间
+        			this.getTimeOptionArr = this.getYuYueTimeList(startTimeMsecFormat, endTimeMsecFormat);
+        		} else if (todayTimeMsec > endTimeMsec) {
 	            	//当前时间大于结束时间-预约结束
-				this.timeFlag = true;
+			this.timeFlag = true;
 
 	        } else {
-        		//当前时间处在开始和结束之间
-        		this.getTimeOptionArr = this.getYuYueTimeList(todayTimeMsecFormat, endTimeMsecFormat);
+	        		//当前时间处在开始和结束之间
+            		this.getTimeOptionArr = this.getYuYueTimeList(todayTimeMsecFormat, endTimeMsecFormat);
 	        }
+
 	        this.yuyueTime = this.getTimeOptionArr[0];
         }
     },

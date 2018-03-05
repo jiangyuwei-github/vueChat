@@ -1,6 +1,7 @@
-
-@import "../../common/stylus/function.styl"
-
+@import "./iconfont.styl"
+@import "./variable.styl"
+@import "./media.styl"
+@import "./mintui.styl"
 /**
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
@@ -32,7 +33,67 @@ footer, header, menu, nav, section {
     display: block;
 }
 
-textarea, input {
+
+
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;-webkit-tap-highlight-color:rgba(255,255,255,0)}
+html
+    color:#333
+    overflow:-moz-scrollbars-vertical
+    font-size:100%
+    -webkit-text-size-adjust:100%
+    -ms-text-size-adjust:100%
+    -webkit-text-size-adjust:none
+
+body,button,input,textarea{font:14px/1.42857 "微软雅黑","Microsoft Yahei","Helvetica Neue","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;word-break:break-word}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+em,i{font-style:normal}
+ul,ol{list-style:none}
+a{text-decoration:none;outline:0;color:#333;-webkit-tap-highlight-color:rgba(255,255,255,0)}
+a:hover{text-decoration:none}
+legend{color:#000}
+fieldset,img{border:0}
+button,textarea{font-size:100%;border:none 0;outline:0;-webkit-appearance:none}
+table{border-collapse:collapse;border-spacing:0}
+th,td{text-align:left}
+img{-ms-interpolation-mode:bicubic;vertical-align:top;border:0}
+textarea{resize:vertical;resize:none}
+input:focus,textarea:focus{outline:0}
+input:-moz-placeholder,textarea:-moz-placeholder,select:-moz-placeholder, 
+select:-moz-placeholder,select:-moz-placeholder,select:-moz-placeholder{color:#999999}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder,select:-ms-input-placeholder,
+select:-ms-select-placeholder,textarea:-ms-select-placeholder,select:-ms-select-placeholder{color:#999999}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder,select::-webkit-input-placeholder,
+select::-webkit-select-placeholder,textarea::-webkit-select-placeholder,select::-webkit-select-placeholder{color:#999999}
+input[type="text"]:disabled{
+ color: #999999;
+}
+input[type="text"]:disabled{ color: #999999; }
+
+
+
+/*简介富文本重置*/
+.quotetext *{max-width:100%!important}
+.quotetext a{color:-webkit-link;cursor:auto;text-decoration:underline}
+.quotetext a:-webkit-any-link{color:-webkit-link;cursor:auto;text-decoration:underline}
+.quotetext h1{display:block;font-size:2em;-webkit-margin-before:.67em;-webkit-margin-after:.67em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext h2{display:block;font-size:1.5em;-webkit-margin-before:.83em;-webkit-margin-after:.83em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext h3{display:block;font-size:1.17em;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext h4{display:block;-webkit-margin-before:1.33em;-webkit-margin-after:1.33em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext h5{display:block;font-size:.83em;-webkit-margin-before:1.67em;-webkit-margin-after:1.67em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext h6{display:block;font-size:.67em;-webkit-margin-before:2.33em;-webkit-margin-after:2.33em;-webkit-margin-start:0;-webkit-margin-end:0;font-weight:bold}
+.quotetext p{display:block;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0}
+.quotetext ul,
+.quotetext menu,
+.quotetext dir
+{display:block;list-style-type:disc;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:40px}
+.quotetext ol{display:block;list-style-type:decimal;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:40px}
+.quotetext li{display:list-item;text-align:-webkit-match-parent}
+.quotetext i,.quotetext cite,.quotetext em,.quotetext var,.quotetext address,.quotetext dfn{font-style:italic}
+.quotetext strong,
+.quotetext b
+{font-weight:bold}
+
+textarea {
     outline: none
     border: 0
     resize: none
@@ -93,871 +154,143 @@ html, body {
     width: 100%;
 }
 
+.bottomNavPadding{       //如有底部导航 底部空50
+    padding-bottom:50px;
+}
+
 body {
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.bodyOverHide
+    height: 100%
+    overflow: hidden
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    padding:0 !important
 
 body, html
     font-weight: 200;
     font-family: 'Microsoft Yahei'
-    background-color: rgb(230, 230, 230)
     color: #333
-
+.bodyBackgroundColor
+    background:rgb(230, 230, 230);
 img[lazy=loading]
     width: 62px
     height: 62px
  
 
-.ellipsis
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-    
-.clearfix
-    display:inline-block
-    &:after
-        display: block
-        content: "."
-        height: 0
-        line-height: 0
-        clear: both
-        visibility: hidden
-.topSeat
-    padding-top: 50px
-    
-.botSeat
-    padding-bottom: 60px
-    
-.shadow
-    box-shadow: 0 1.5px 1.5px rgba(0,0,0,.2)
-    margin-bottom: 10px
-    background: #fff
-    
-.header, .head-back
-    position: fixed
-    left:0px
-    top:0px
-    width: 100%
-    height: 50px
-    z-index:10
-    box-shadow: 0 1.5px 1.5px rgba(0,0,0,.2)
-    display: flex
-    background: #fff
-    .headerTitle
-        flex: 1
-        text-align: center
-        line-height: 50px
-        font-size: 18px
-    .Occupy
-        flex: 0 0 50px
-        text-align: center
-        line-height: 50px
-        span.o-idet
-            display: block
-        i
-            display: inline-block
-            font-size: 24px
-            vertical-align: middle
-    .head-back-icon
-        flex: 0 0 50px
-        text-align: center
-        line-height:50px
-        i
-            display: inline-block
-            font-size: 24px
-            vertical-align: middle
-        i.icon-icon37
-            font-size: 16px
-.loginIcon
-    flex: 0 0 50px
-    width: 50px
-    height: 50px
-    line-height: 50px
+ //头部样式
+.header
+    position:fixed
+    height:50px
     text-align: center
-    font-size: 0px
-    .head-photo
-        display: inline-block
-        width: 30px
-        height: 30px
-        line-height: 30px
-        overflow: hidden
+    top:0
+    left:0
+    width:100%
+    background: #ffffff;
+    z-index: 9999;
+    box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.2);
+    .headerLogin
+        position:absolute
+        left:0
+        top:0
+        width:50px
+        height:50px
+        .noLogin
+            i
+                font-size:24px
+                padding-top: 14px
+                display: block
+        .Login
+            img
+                height:30px
+                width:30px
+                vertical-align: top
+                margin-top: 10px
+    .headerTab
         border-radius: 2px
-        vertical-align: middle
-        font-size: 0px
-        img
-            vertical-align: middle
-            max-height: 30px
-            max-width: 30px
-    a.loginIcon-home
-        display: block
-        height: 50px
-        line-height: 50px
-        font-size: 15px
-    i.icon-icon42
-        height: 50px
-        line-height: 50px
-        text-align: center
-        display: block
-        font-size: 24px
-        vertical-align: middle
-    span.loginIcon-text
-        display: block
-        font-size: 16px
-.headerTab
-    flex: 1
-    margin:10px 4% 0
-    text-align: center
-    box-sizing:border-box
-    display: flex
-    border: 1px solid #F35B00
-    height: 30px
-    line-height: 30px
-    border-radius: 2px
-    a
-        font-size: 14px
-        color: #F35B00
-        letter-spacing: .82px
-        flex: 1
+        border: 1px solid $color-background-origin
         box-sizing: border-box
-        border-right-px(1px, rgba(243,91,0,1))
-        &.active
-            background: #F35B00
-            color: #FFF
-        &:last-child
-            border-right-px(0px, rgba(243,91,0,1))
-         
-.padBothSide
-    padding: 0 10px
+        -webkit-box-sizing: border-box
+        margin: 10px auto 0
+        display: inline-block;
+        a
+            position: relative;
+            font-size: 14px;
+            color: $color-background-origin;
+            letter-spacing: 0.82px;
+            line-height: 28px;
+            text-align: center;
+            box-sizing: border-box;
+            display: inline-block;
+            &.active
+                background:$color-background-origin;
+                color:#ffffff
+    .headerTabTwo
+        a
+            width:100px
+    .headerTabThree
+        width:70%
+        a
+            width:33.33%
+    h2
+        line-height:50px;
+        font-size: 18px;
+        color: #000;
     
-/*公共块样式*/
-h3.console-txt-h3
+.shadow 
+    box-shadow: 0 1.5px 1.5px rgba(0, 0, 0, 0.2)
+    border-radius: 3px
+    background: #ffffff
+    margin-bottom: 10px
+    overflow:hidden
+
+h2.ItemTitle
+    line-height: 24px
     font-size: 16px
-    display: flex
-    padding: 8px 10px
-    border-bottom-px(1px, rgba(7, 17, 27, 0.1))
-    span
-        flex: 1
-    i
-        flex: 0 0 40px
-        text-align: center
-        color: #999
-        line-height: 24px
-        font-size: 14px
-h4.console-txt-line
-    font-size: 14px
-    display: flex
-    padding: 8px 0
-    position: relative
-    padding-left: 16px
-    &:before
-        content:''
-        position: absolute
-        left: 0px
-        width: 6px
-        height: 14px
-        top: 50%
-        margin-top: -7px
-        background-color: #F35B00
-    span
-        flex: 1
-        
-.viewSee_more
-    background: #f2f2f2;
-    text-align: center;
-    border-top-px(1px, rgba(0,0,0,.1))
-    a
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    padding: 8px 15px
+    position:relative
+    p
         display: block
-        line-height: 34px
-        font-size: 14px
-        color: #999
-
-.sticky-area
-    position: sticky
-    top: 0px
-    z-index: 11
-    margin-top: 2px
-    padding-top: -2px
-.search-bar
-    background: #FDFDFD
-    padding: 10px
-    display: flex
-    .search-inner
-        flex: 1
-        height: 30px
-        line-height: 30px
-        box-sizing: border-box
-        border: 1px solid rgba(0,0,0,.05)
-        border-right: 0px
-        display: flex
-        background: #f3f3f3
-        box-sizing: 2px 0 0 2px
-        i
-            flex: 0 0 30px
-            font-size: 20px
-            color: #b2b2b2
-            line-height: 30px
-            text-align: center
-            background: #fff
-        input
-            flex: 1
-            box-sizing: border-box
-            padding: 4px 10px
-            font-size: 12px
-    .search-btn
-        flex: 0 0 50px
-        text-align: center
-        color: #fff
-        height: 30px
-        line-height: 30px
-        background: #F35B00
-        border-radius: 0 2px 2px 0
-        font-size: 14px
-        
-.cell-filter
-    border-bottom: 1px solid rgba(0,0,0,.05)
-    border-top: 1px solid rgba(0,0,0,.05)
-    padding: 10px
-    background: #fff
-    display: flex
-    .cell-filter-box
-        flex: 1
-        -webkit-overflow-scrolling: touch
-        white-space: nowrap
-        overflow-x: scroll
-        overflow-y: hidden
-        ul
-            font-size: 0px
-            li
-                font-size: 14px
-                display: inline-block
-                padding: 0 16px
-                height: 24px
-                line-height: 24px
-                &.active
-                    color: #f35b00
-    .class-filter
-        flex: 0 0 62px
-        text-align: center
-        font-size: 0px
-        padding-left: 6px
-        box-sizing: border-box
-        i
-            vertical-align: middle
-            font-size: 16px
-            width: 24px
-            line-height:24px
-            color: #999
-            display: inline-block
-        span
-            color: #999
-            width: 32px
-            font-size: 15px 
-            line-height:24px
-            vertical-align: middle
-            display: inline-block
-.list-handle
-    flex: 0 0 50px
-    text-align: center
+        width: 85%
+        color: #666666
+    .arrow
+        position:absolute
+        right:0
+        top:0
+        width:10%
+        height:100%
     i
-        width: 40px
-        height: 40px
-        line-height: 40px
-        display: inline-block
-        vertical-align: middle
-        font-size: 22px
-        color: #999
-    i.icon-icon29
-        font-size: 12px
-i.icon_color
-    color: #f35b00 !important
-/*列表*/
-.listCol
-    background:#fff
-    ul.in-list
-        padding-left: 10px
-        li
-            border-bottom-px(1px, rgba(0,0,0,0.05))
-            display: flex
-            padding: 14px 0
-        a
-            display: block
-            flex: 1
-        .infro
-            display: flex
-            .photo
-                flex: 0 0 64px
-                border: 1px solid #e6e6e6
-                width: 64px
-                height: 64px
-                font-size: 0px
-                line-height: 62px
-                overflow: hidden
-                box-sizing: border-box
-                text-align: center
-                border-radius: 4px
-                position: relative
-                img
-                    vertical-align:middle;
-                    max-height: 62px
-                    max-width: 62px
-            .text
-                flex: 1
-                box-sizing: border-box
-                padding-left: 10px
-                h6
-                    font-size: 16px
-                    height: 24px
-                    line-height: 24px
-                    overflow: hidden
-                    display: -webkit-box
-                    -webkit-box-orient: vertical
-                    -webkit-line-clamp: 1
-                    word-break: break-word
-                p
-                    line-height: 20px
-                    height: 20px
-                    font-size: 12px
-                    overflow: hidden
-                    display: -webkit-box
-                    -webkit-box-orient: vertical
-                    -webkit-line-clamp: 1
-                    word-break: break-word
-        .list-handle
-            height: 64px
-            line-height: 64px
-        .tag
-            padding: 4px 0px
-            font-size: 0px
-            height: 18px
-            margin-top: 4px
-            line-height: 18px
-            i
-                font-size: 16px
-                color: #F35B00
-                width: 18px
-                height: 18px
-                line-height: 18px
-                display: inline-block
-                vertical-align: top
-            span
-                font-size: 12px
-                display: inline-block
-                vertical-align: top
-                margin-left: 6px
-                &.green
-                    color: #A3C512
-                &.yellow
-                    color: #F2AE43
-                &.orange
-                    color: #F35B00
-.listCol-arraw
-    ul.in-list li
-        .infro
-            flex: 1
-        a
-            display: flex
-.noMoreData
-    padding: 10px
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+        height: 16px
+        text-align: center
+        color:$color-grey
+    
+.H3-Title
+    line-height: 25px;
+    font-size: 13px;
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding: 4px 15px;
+    background: #fafafa;
+
+//查看更多
+
+.viewSee_more 
+    background: #f2f2f2
     text-align: center
-    font-size: 14px
-    color: #999
-.view-more
-    background-color: #f2f2f2
-    text-align: center
-    height: 34px
     line-height: 34px
-    border-top-px(1px, rgba(0,0,0,0.01))
-    font-size: 14px
-    color: #999999
-    span
-        display: inline-block
-        height: 34px
-        line-height: 34px
-        vertical-align: top
-    em
-        display: inline-block
-        height: 34px
-        line-height: 34px
-        vertical-align: top
-        font-style: normal
-    i
-        display: inline-block
-        height: 34px
-        line-height: 34px
-        vertical-align: top
-        font-size: 12px
-        margin:0 8px
-.mask-shadow
-    position: fixed
-    left: 0px
-    top: 0px
-    width: 100%
-    height: 100%
-    background: rgba(0, 0, 0, 0.3)
-    z-index: 15
-
-.mine-nolist-tips
-    text-align: center
-    color:#9B9B9B
-    padding: 40px 10px 20px
-    i 
-        font-size: 60px
-    p
-        margin: 10px 0 20px
-        font-size: 14px
-    a.create-btn
-        display: inline-block
-        color: #FFF
-        background-color: #F35B00
-        padding: 5px 20px
-        border-radius: 2px
-        font-size: 14px
-
-.help-list
-    border-bottom: 2px solid #f2f2f2
-    p
-        display: flex
-        a
-            display: block
-            flex:1
-            display: flex
-        i
-            flex: 0 0 46px
-            width: 46px
-            height: 46px
-            text-align: center
-            font-size: 20px
-            line-height: 46px
-            color: #666
-        span
-            box-sizing: border-box
-            flex:1
-            line-height: 22px
-            padding: 12px 10px
-            font-size: 14px
-            color: #333
-            border-bottom-px(1px, rgba(0,0,0,.05))
-            
-
-/*互动圈*/
-.m-center
-    background-color: #e6e6e6
-    .m-list
-        transition: all 2s ease;
-    .m-list-top
-        padding: 10px
-        display: flex
-        a.link
-            flex: 1
-            display: block
-        .infro
-            display: flex
-            .photo
-                width: 50px
-                height: 50px
-                flex: 0 0 50px
-                border-radius: 4px
-                text-align: center
-                box-sizing: border-box
-                overflow: hidden
-                img
-                    vertical-align: top
-                    max-height: 50px
-                    max-width: 50px
-            .text
-                box-sizing: border-box
-                padding: 0 10px
-                flex: 1
-                h6
-                    line-height: 18px
-                    height: 18px
-                    overflow: hidden
-                    font-size: 14px
-                    display: -webkit-box
-                    -webkit-box-orient: vertical
-                    -webkit-line-clamp: 1
-                p
-                    height: 16px
-                    line-height: 16px
-                    overflow: hidden
-                    font-size: 12px
-                    color: #999
-                    display: -webkit-box
-                    -webkit-box-orient: vertical
-                    -webkit-line-clamp: 1
-        .list-handle
-            flex: 0 0 40px
-            height: 40px
-            width: 40px
-            i
-                width: 40px
-                height: 40px
-                line-height: 40px
-                font-size: 12px
-                color: #ccc
-    .m-list-text
-        padding: 0 10px
-        p
-            font-size: 15px
-            line-height: 20px
-            word-break: break-word
-        .img
-            margin-top: 10px
-            text-align: left
-            img
-                max-width: 100%
-                max-height: 200px
-    .m-list-time
-        padding: 10px
-        color: #999
-        font-size: 12px
-        span.m-creat-time
-            font-size: 12px
-        em
-            font-size: 12px
-            margin-left: 10px
-            font-style: normal
-        a.at
-            font-size: 12px
-            color:#576B95
-.comment-like-handle
-    text-align: center
-    font-size: 0px
-    padding: 3px 0
-    border-top-px(1px, rgba(0,0,0,.05))
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
     a
-        display: inline-block
-        width: 50%
-        height: 30px
-        line-height: 30px
-        color: #999
-        font-size: 0px
-        vertical-align: top
-        &:first-child
-            border-right-px(1px, rgba(0,0,0,.05))
-        i
-            display: inline-block
-            font-size: 22px
-            height: 30px
-            line-height: 30px
-            vertical-align: top
-            &.icon-icon44
-                font-size: 20px
-            &.icon-icon55
-                font-size: 26px    
-        span
-            font-size: 16px
-            display: inline-block
-            line-height: 30px
-            margin-left: 6px
-            vertical-align: top
-/*互动话题*/
-.t-center .t-list
-    border-bottom-px(1px, rgba(0,0,0,.05))
-    padding: 14px 10px
-    .topic-title-new-ident
-        position: absolute
-        right: 0px
-        top: 0px
-        width: 40px
-        img
-            width: 40px
-    .topic-title-ident
-        position: absolute
-        right: 0px
-        top: 0px
-        width: 40px
-        height: 40px
-        line-height: 40px
-        text-align: center
-        font-size: 30px
-        color: #10AEFF
-    .topic-title-handle
-        padding-right: 40px
-    a.topic-title-link
-        display: block
-    h3.topic-title
-        font-size: 16px
-        word-break: break-word
-    a.topic-infro
-        display: flex
-        padding: 10px 0
-    .topic-creator
-        display: flex
-        flex: 1
-        .photo
-            flex: 0 0 20px
-            width: 20px
-            height: 20px
-            line-height: 20px
-            overflow: hidden
-            font-size: 0px
-            border-radius: 2px
-            img
-                max-width: 20px
-                max-height: 20px
-                vertical-align: middle
-        p
-            flex: 1
-            box-sizing: border-box
-            padding: 0 10px
-            font-size: 12px
-            height: 20px
-            line-height: 20px
-            color: #999999
-            overflow: hidden
-            display: -webkit-box
-            -webkit-box-orient: vertical
-            -webkit-line-clamp: 1
-    .comment-like-handle
-        flex: 0 0 100px
-        width: 100px
-        text-align: right
-        font-size: 0px
-        &:after
-            display: none
-        a
-            font-size: 16px
-            display: inline-block
-            width: 50%
-            height: 20px
-            line-height: 20px
-            &:after
-                display: none
-            i
-                display: inline-block
-                font-size: 15px
-                height: 20px
-                line-height: 20px
-            span
-                display: inline-block
-                font-size: 12px
-                height: 20px
-                line-height: 20px
-/*互动话题评论列表和互动圈评论*/
-.main-comment-detail
-    margin-top: 10px
-    background-color: #fff
-    padding:0 10px
-    .main-comment-list
-        padding: 14px 0
-        border-bottom-px(1px, rgba(0,0,0,.05))
-        display: flex
-        a.link
-            display: block
-            flex: 0 0 30px
-            width: 30px
-            height: 30px
-            .photo
-                width: 30px
-                height: 30px
-                line-height: 30px
-                overflow: hidden
-                border-radius: 2px
-                text-align: center
-                img
-                    max-height: 100%
-                    max-width: 100%
-        .text
-            box-sizing: border-box
-            padding-left: 10px
-            color: #666
-            flex: 1
-            h4
-                font-size: 14px
-            h6
-                font-size: 16px
-                padding: 8px 0
-                color: #333
-            p.time
-                font-size: 12px
-                color: #9B9B9B
- /*错误页面*/
-.main-error
-    padding: 10px
-    text-align: center
-    .main-error-img
-        width: 120px
-        margin: 160px auto 0
-        img
-            max-width: 100%
-    p
-        margin-top: 24px
-        font-size: 26px
-        color: #ccc               
-/*日程列表共用样式*/
-.meetingList
-    .meetingPlace
-        background: #fff
-        h3
-            background: #fafafa
-            border-top-px(1px, rgba(7, 17, 27, 0.1))
-            font-size: 13px
-            line-height: 24px
-        ul
-            padding-left: 14px
-        li
-            display: flex
-            border-bottom-px(1px, rgba(0, 0, 0, 0.05))
-            &:last-child
-                border-bottom-px(0px, rgba(0, 0, 0, 0.05))
-            .toLink
-                flex: 1
-                display:flex
-                padding: 12px 0   
-                .timer
-                    flex: 0 0 50px
-                    font-size: 12px
-                    span:last-child
-                        color: #999999
-                        line-height: 18px
-                .meetTxt
-                    flex: 1
-                    box-sizing: border-box
-                    padding: 0 16px
-                    font-size: 15px
-                    line-height: 20px
-                    border-left-px(1px, rgba(0, 0, 0, 0.05))
-                    display: -webkit-box;
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 2;
-                    overflow: hidden;
-            .list-handle
-                line-height: 64px
-                i
-                    color: #f35b00
-                    font-size: 36px
-                i.icon-icon62
-                    font-size: 16px    
-/*输入框 共用样式*/
-.field-main
-    margin-bottom: 10px
-    .field-title
-        color: #999
-        padding: 6px 0
-        font-size: 16px
-        vertical-align: middle
-    em.red-star
-        color: #E64F38
-        vertical-align: middle
-    .field-box
-        display: flex
-        border: 1px solid #C9D0D6
-        background-color: #F0EFED
+        color: #999999
         font-size: 14px
-        border-radius: 2px
-        .field-input
-            flex: 1
-            input
-                display: block
-                width: 100%
-                height: 38px
-                line-height: 38px
-                background-color: transparent
-                box-sizing: border-box
-                padding: 0 10px
-            textarea
-                display: block
-                width: 100%
-                height: 100px
-                line-height: 20px
-                background-color: transparent
-                box-sizing: border-box
-                padding: 8px 10px
-                color: #352E2B
-        .field-handle
-            flex: 0 0 40px
-            width: 40px
-            height: 38px
-            text-align: center
-            text-align: center
-            i
-                width: 40px
-                height: 38px
-                line-height: 38px
-                vertical-align: top
-                display: none
-                color: #ccc
-                font-size: 16px
-    p.field-error
-        min-height: 16px
-        line-height: 16px
-        padding: 2px 0
-        color: #ff0000
-        font-size: 12px
-            
-        
-/*上拉下拉刷新*/
-.dropload-up,
-.dropload-down 
-    position: relative
-    height: 0
-    overflow: hidden
-    font-size: 12px
-    transform: translateZ(0)
-
-.dropload-down
-    height: 50px
-.dropload-refresh,
-.dropload-update,
-.dropload-load,
-.dropload-noData
-    height: 50px
-    line-height: 50px
-    text-align: center
-    color: #999
-    color: rgba(153,153,153,0.7)
-
-
-.dropload-load .loading
-    display: inline-block
-    height: 15px
-    width: 15px
-    border-radius: 100%
-    margin: 6px
-    border: 2px solid #666
-    border-bottom-color: transparent;
-    vertical-align: middle
-    animation: rotate 0.75s linear infinite
-
-@-webkit-keyframes rotate {
-    0% {
-        -webkit-transform: rotate(0deg)
-    }
-    50% {
-        -webkit-transform: rotate(180deg)
-    }
-    100% {
-        -webkit-transform: rotate(360deg)
-    }
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg)
-    }
-    50% {
-        transform: rotate(180deg)
-    }
-    100% {
-        transform: rotate(360deg)
-    }
-}
-
-  
-@keyframes line-scale
-{
-    0%, 40%, 100% {
-        transform: scaleY(0.4)
-    }
-    20% {
-        transform: scaleY(1)
-    }
-}
-
-@import "./iconfont.styl"
-@import "./media.styl"
-@import "./mintui.styl"
-
+        display: block
