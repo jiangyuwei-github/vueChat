@@ -1,9 +1,5 @@
 const state = {
-	navList : {},   // 会议的基本信息
-	PrId_PaKey:{},   // 主项的projectId 和 passKey
-	navflg:false,    // 侧导航栏
 	footerflg:true, // 底部导航
-	modules:{},    //所有模块
 	"bottomTag":"",
 	"chatFlag":false,  //判断是否进入聊天列表
 	"attendguest" : [   //所有用户列表
@@ -35,7 +31,9 @@ const state = {
 	],
 	"firend":[],   //好友
 	"msgList":[],    //信息列表
-	"unread":0
+	"unread":0,
+	"dynamicList":[],
+	"dynamicRandom":[3]
 }
 
 export default state

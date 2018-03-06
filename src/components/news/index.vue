@@ -3,10 +3,10 @@
         <HeadrTitle :title="title"></HeadrTitle>
         <div class="mesgList">
             <template v-for="(value, key) in msgGroup">  
-            <router-link :to="{ path:url('/hudongpiao/attendguest/' + getLast(value).from) }" class='item'>
-                    <div class="img" :style="{backgroundImage:  'url(' + defaultImg   + ')'  }">sadf</div>
+            <router-link :to="{ path:url(get_url(value) ) }" class='item'>
+                    <div class="img" :style="{backgroundImage:  'url(' + defaultImg   + ')'  }"></div>
                     <div class="text" v-text="getLast(value).text"></div>
-                    <div class="number">99</div>
+                    <div class="number" v-text='getNoRead(value)' v-if='getNoRead(value)>0'></div>
             </router-link>
             </template>
         </div>
@@ -18,7 +18,7 @@ import HeadrTitle from '@/base/headerTitle/index'//公共头部
 import GuestList from '@/base/guestList/index'
 import {mapGetters,mapMutations} from 'vuex'
 import {globalMethods} from '@/util/mixin'
-import {setTitle} from '@/util/util'
+import {setTitle,getCookie} from '@/util/util'
 import axios from 'axios'
 import { param } from '@/config/config'
 import qs from 'qs'
@@ -40,11 +40,17 @@ export default {
         getLast(arr){
             return arr[arr.length-1]
         },
+        get_url(val){
+            const _param =    this.getLast(val).from == getCookie("userId") ? this.getLast(val).to : this.getLast(val).from
+            return '/hudongpiao/attendguest/' +_param
+        },
         get_msgmgroup:function(){
+
+
             this.msgGroup = {}
             this.msgList.forEach(v=>{
-               this.msgGroup[v.from] = this.msgGroup[v.from] || []
-               this.msgGroup[v.from].push(v)
+               this.msgGroup[v.chatId] = this.msgGroup[v.chatId] || []
+               this.msgGroup[v.chatId].push(v)
             })
             const chatList = Object.values(this.msgGroup).sort((a,b)=>{
                 const a_list = this.getLast(a).creteTimer
@@ -52,9 +58,15 @@ export default {
                 return b_list - a_list
             })
 
-            console.log(chatList)
+            console.log(JSON.stringify(this.msgGroup))
             this.msgGroup = chatList
-            console.log(this.msgGroup)
+            // console.log(this.msgGroup)
+        },
+        getNoRead:function(val){
+            return val.filter((key)=>{
+                console.log(key.readFlg)
+                return key.readFlg == true && key.to == getCookie('userId')
+            }).length
         },
         ...mapMutations({
           setFirend: 'SET_FIRENDER',

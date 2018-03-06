@@ -29,37 +29,14 @@ export default {
             "passKey":this.$route.query.childPassKey,
             "type":"eventIntroModule"
         }
-        // 获取简介内空
-        // axios.post(param.api_url + '/eventapi/during/getDataChildren', qs.stringify(params))
-        // .then(res=>{
-        //   if(res.status == 200 ){
-        //     this.contentText =res.data.data
-        //     // console.log(JSON.parse(JSON.stringify(this.contentText)))
-        //   }
-        // })
-        // .catch(err=>{
-        //   console.log(err)
-        // })
-        // commonAjaxFun(params)
+        // commonAjaxFun(params,param.baseUrl)
         // .then(
-        //         function(data){
-        //             console.log(this.contentText)
-        //             That.contentText = data;
-        //         }, 
-        //        function(reason, data){
-        //            console.log(reason);
-        //        }
+        //         (data)=>{
+        //             this.contentText = data;
+        //         },(reason, data)=>{
+        //             console.log(reason);
+        //         } 
         //     )
-
-
-        commonAjaxFun(params,param.baseUrl)
-        .then(
-                (data)=>{
-                    this.contentText = data;
-                },(reason, data)=>{
-                    console.log(reason);
-                } 
-            )
 
 
     },
@@ -67,28 +44,11 @@ export default {
         HeadrTitle
     },
     computed: {
-        bannerParam(){     //Banner的高度和背景图片
-            var HB = {
-                height:`${parseInt(document.body.clientWidth * 9 / 16)}px`,
-                backgroundImage:""
-            }
-            if(this.BasicInfo){
-                var tempImg =this.BasicInfo.meetingPrimary ? this.BasicInfo.meetingPrimary : './kv.png'
-                HB.backgroundImage = "url(" +tempImg+ ")"
-            }
-            return HB
-        },
         ...mapGetters([
-          'navList',
-          'PrId_PaKey',
-          'navflg'
+
         ])
     },
     watch: {
-        navList(newList,oldList){
-            // console.log(JSON.parse(JSON.stringify(newList)))
-            this.BasicInfo = newList.basicInfo;
-        }
     }
 }
 </script>

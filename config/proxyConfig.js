@@ -1,5 +1,5 @@
-const url = 'http://em.uwin.cc';
-//const url = "http://console.expoplus.com.cn";
+// const url = 'http://em.uwin.cc';
+const url = "http://console.expoplus.com.cn";
 
 module.exports = {
     '/interactCircle/getThemeList': {//互动话题

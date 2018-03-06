@@ -17,9 +17,6 @@ io.on('connection',function(socket){
 })
 
 
-
-
-
 server.listen(9090,function(){
 	console.log('node app start at port 9090')
 })

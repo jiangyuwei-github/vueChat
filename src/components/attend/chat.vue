@@ -42,6 +42,7 @@ export default {
             "title":"",
             "message":"",
             "userId" : getCookie('userId'),
+            "from":this.$route.params.id,
             "chatmsgs":""
         }
     },
@@ -76,6 +77,7 @@ export default {
           setFooterflg: 'SET_FOOTERFLG',
           setFirend: 'SET_FIRENDER',
           setChatFlg: 'SET_CHATFLG',
+          setreadmesg: 'SET_READMESG',
         }),
         ...mapActions([
           'recvMsg',
@@ -98,6 +100,11 @@ export default {
             'msgList',
             "chatFlag"
         ])
+    },
+    destroyed:function(){
+        // console.log(this.from)
+        this.setreadmesg( getChatId(this.userId,this.from) )
+        console.log("eeee")
     }
 }
 </script>

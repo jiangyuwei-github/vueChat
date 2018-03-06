@@ -1,6 +1,6 @@
 import {getCookie} from '../util/util'
 export const param = {
-	api_url: 'http://192.168.12.8:80',
+	api_url: 'http://localhost:80',
 	mainProjectId:getCookie('CHANGEPROJECT'),//主项目ID
 	mainPassKey:getCookie('HUDONGPIAOPASSKEY'),
 	// mainUserTk:'990CAA741F9A3A60AE3A24E6DB9F4FE0'

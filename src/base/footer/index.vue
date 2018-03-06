@@ -1,10 +1,10 @@
 <template>
     <div class="FooterNav" v-show='footerflg'>
-        <router-link :to="{ path:url('/hudongpiao/ticket/index' ) }" :class='{activeTag : bottomTag == "index"}'>
+        <router-link :to="{ path:url('/hudongpiao/index/index' ) }" :class='{activeTag : bottomTag == "index"}'>
             <i class="icon-icon81"></i>
             <p>首页</p>
         </router-link>
-        <router-link :to="{ path:url('/hudongpiao/ticket/index' ) }" >
+        <router-link :to="{ path:url('/hudongpiao/index/index' ) }" >
             <i class="icon-icon82"></i>
             <p>展商展品</p>
         </router-link>
@@ -57,7 +57,6 @@ export default {
     },
     computed: {
         ...mapGetters([
-          'PrId_PaKey',
           'footerflg',
           "bottomTag",
           "unread",
@@ -65,10 +64,6 @@ export default {
         ])
     },
     watch: {
-        navList(newList,oldList){
-            // console.log(JSON.parse(JSON.stringify(newList)))
-            this.BasicInfo = newList.basicInfo;
-        }
     }
 }
 </script>

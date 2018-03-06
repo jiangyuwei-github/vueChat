@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <HeadrTitle :title="title"></HeadrTitle>
-        <GuestList :list = 'firend' :url_str='url_str'></GuestList>
-    </div>
+        <div>
+            <HeadrTitle :title="title"></HeadrTitle>
+            <GuestList :list = 'firend' :url_str='url_str'></GuestList>
+        </div>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
     data(){
         return {
             "title":"好友",
-            "url_str":"/hudongpiao/attendguest/"
+            "url_str":"/hudongpiao/chat/"
         }
     },
     mixins:[globalMethods],
